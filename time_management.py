@@ -5,6 +5,7 @@ from re import I
 import keyboard
 import datetime
 import time
+
 def writetext(text):
     datei = open("./timemanage.txt", "a")
     datei.write(text)
@@ -55,7 +56,7 @@ if __name__ == "__main__":
 
     while True:
         
-
+        #überprüft ob noch der gleiche Tag ist
         if  formatiertes_datum != datetime.datetime.today().strftime("%d.%m.%Y") or workingday == 0:
             formatiertes_datum = datetime.datetime.today().strftime("%d.%m.%Y")
             writetext(formatiertes_datum)
@@ -63,10 +64,13 @@ if __name__ == "__main__":
 
         if aktuelle_zeit != datetime.datetime.now().strftime("%H:%M:%S"):
 
+            #löst aus wenn der Pc entspeert wird
             if locked == False and newlock == True:
                 on_unlock()
                 locked = False
                 newlock = False
-            aktuelle_zeit = datetime.datetime.now().strftime("%H:%M:%S")
+            
+            #löst aus wenn der PC gespeert wird
             keyboard.hook(on_key_press)
+            aktuelle_zeit = datetime.datetime.now().strftime("%H:%M:%S")
             time.sleep(1)
